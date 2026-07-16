@@ -1,0 +1,42 @@
+@font-face {
+    font-family: 'Phenomena';
+    src: local('Phenomena Thin'), local('Phenomena-Light'), url('Phenomenathin.woff2') format('woff2'), url('Phenomenathin.woff') format('woff'), url('Phenomenathin.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Phenomena';
+    src: local('Phenomena ExtraLight'), local('Phenomena-ExtraLight'), url('Phenomenaextralight.woff2') format('woff2'), url('Phenomenaextralight.woff') format('woff'), url('Phenomenaextralight.ttf') format('truetype');
+    font-weight: 200;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Phenomena';
+    src: local('Phenomena Light'), local('Phenomena-Light'), url('Phenomenalight.woff2') format('woff2'), url('Phenomenalight.woff') format('woff'), url('Phenomenalight.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Phenomena';
+    src: local('Phenomena'), local('Phenomena-Regular'), url('Phenomena.woff2') format('woff2'), url('Phenomena.woff') format('woff'), url('Phenomena.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Phenomena';
+    src: local('Phenomena Bold'), local('Phenomena-Bold'), url('Phenomenabold.woff2') format('woff2'), url('Phenomenabold.woff') format('woff'), url('Phenomenabold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Phenomena';
+    src: local('Phenomena ExtraBold'), local('Phenomena-ExtraBold'), url('Phenomenaextrabold.woff2') format('woff2'), url('Phenomenaextrabold.woff') format('woff'), url('Phenomenaextrabold.ttf') format('truetype');
+    font-weight: 800;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Phenomena';
+    src: local('Phenomena Black'), local('Phenomena-Black'), url('Phenomenablack.woff2') format('woff2'), url('Phenomenablack.woff') format('woff'), url('Phenomenablack.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+}
