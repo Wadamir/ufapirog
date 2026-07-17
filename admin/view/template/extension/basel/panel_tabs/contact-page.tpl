@@ -1,5 +1,97 @@
-<legend>Contact Page</legend>
+<legend><?= $text_tab_contact_page ?></legend>
+<?php /*
+<legend class="sub"><?= $text_show_contact_page ?></legend>
+$matrix_rows = array();
+foreach ($basel_contacts as $contact) {
+    $label_var = 'entry_' . $contact;
+    $label = isset($$label_var) ? $$label_var : $contact;
+    $matrix_rows[$contact] = $label;
+}
 
+$matrix_columns = array();
+foreach ($basel_resolutions as $resolution) {
+    $label_var = 'text_show_' . $resolution;
+    $label = isset($$label_var) ? $$label_var : $resolution;
+    $matrix_columns[$resolution] = $label;
+}
+?>
+
+<table class="table table-bordered__ matrix-table" style="max-width: 600px;">
+    <thead>
+        <tr>
+            <th></th>
+            <?php foreach ($matrix_columns as $column_label) { ?>
+                <th class="text-center"><?= $column_label ?></th>
+            <?php } ?>
+
+        </tr>
+    </thead>
+
+    <tbody>
+
+        <?php foreach ($matrix_rows as $row_key => $row_label) { ?>
+            <tr>
+                <th scope="row"><?= $row_label ?></th>
+
+                <?php foreach ($matrix_columns as $column_key => $column_label) { ?>
+
+                    <?php
+                    $setting_key = $row_key . '_contact_page_' . $column_key;
+                    $setting_value = isset($$setting_key) ? $$setting_key : 0;
+                    ?>
+
+                    <td class="text-center">
+
+                        <input
+                            type="hidden"
+                            name="settings[basel][<?= $setting_key ?>]"
+                            value="0" />
+
+                        <input
+                            type="checkbox"
+                            name="settings[basel][<?= $setting_key ?>]"
+                            value="1"
+                            <?= $setting_value ? 'checked="checked"' : '' ?> />
+
+                    </td>
+
+                <?php } ?>
+
+            </tr>
+        <?php } ?>
+
+    </tbody>
+</table>
+*/ ?>
+
+<legend class="sub"><?= $text_contact_map ?></legend>
+<div class="form-group new-form-group">
+    <label class="col-sm-2 control-label"><?= $entry_map_layout ?></label>
+    <div class="col-sm-10">
+        <select name="settings[basel][basel_map_style]" class="form-control">
+            <option value="0" <?php echo ($basel_map_style == '0') ? 'selected="selected"' : ''; ?>><?= $text_disabled ?></option>
+            <option value="full_width" <?php echo ($basel_map_style == 'full_width') ? 'selected="selected"' : ''; ?>><?= $text_full_width ?></option>
+        </select>
+    </div>
+</div>
+
+<div class="form-group new-form-group">
+    <label class="col-sm-2 control-label"><?= $entry_yandex_map; ?></label>
+    <div class="col-sm-10">
+        <input class="form-control" name="settings[basel][basel_yandex_map]" value="<?= !empty($basel_yandex_map) ? $basel_yandex_map : ''; ?>" />
+    </div>
+</div>
+
+<br />
+
+<div class="col-sm-offset-1">
+    <div class="bs-callout bs-callout-info bs-callout-sm">
+        <h4><?= $text_how_use_yandex_map; ?></h4>
+        <p><?= $text_yandex_map_instruction; ?></p>
+    </div>
+</div>
+
+<?php /*
 <div class="form-group">
     <label class="col-sm-2 control-label">Map layout</label>
     <div class="col-sm-10">
@@ -44,3 +136,4 @@
 <p>Please follow the instructions here <a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank">https://developers.google.com/maps/documentation/javascript/get-api-key</a></p>
 </div>
 </div>
+*/ ?>

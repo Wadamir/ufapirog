@@ -90,13 +90,118 @@
             <div class="table-cell text-left w20 xxs-w25 logo">
                 <?php if ($logo) { ?>
                     <div id="logo">
-                        <a href="<?php echo $home; ?>"><img src="<?php echo $logo; ?>" title="<?php echo $name; ?>"
-                                alt="<?php echo $name; ?>" /></a>
+                        <a href="<?php echo $home; ?>"><img src="<?php echo $logo; ?>" title="<?php echo $name; ?>" alt="<?php echo $name; ?>" /></a>
                     </div>
                 <?php } ?>
             </div>
             <div class="table-cell text-right w20 xxs-w75 shortcuts">
                 <div class="font-zero">
+                    <div class="icon-element is_contacts">
+
+                        <div class="dropdown-wrapper-click from-top">
+                            <div class="shortcut-wrapper <?= $address_link_class ?>">
+                                <a class="shortcut-wrapper phone" href="<?= $header_contact['link'] ?>">
+                                    <?php if (!empty($header_contact['icon'])) { ?>
+                                        <?= $header_contact['icon']; ?>
+                                    <?php } else { ?>
+                                        <?= $header_contact['icon_svg']; ?>
+                                    <?php } ?>
+                                    <?php if (!empty($header_contact['value'])) { ?>
+                                        <span class="nowrap phone_number hidden-xs">
+                                            <?= $header_contact['value']; ?>
+                                        </span>
+                                    <?php } ?>
+                                </a>
+                            </div>
+
+                            <div class="shortcut-wrapper <?= $address_dropdown_class ?>">
+                                <a href="javascript:void(0)" class="shortcut-wrapper phone dropdown-toggle" id="dropdownAddress" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <?php if (!empty($header_contact['icon'])) { ?>
+                                        <?= $header_contact['icon']; ?>
+                                    <?php } else { ?>
+                                        <?= $header_contact['icon_svg']; ?>
+                                    <?php } ?>
+                                    <?php if (!empty($header_contact['value'])) { ?>
+                                        <span class="nowrap phone_number hidden-xs">
+                                            <?= $header_contact['value']; ?>
+                                        </span>
+                                    <?php } ?>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
+                                    </svg>
+                                </a>
+                                <div class="dropdown-content__ dropdown-menu" aria-labelledby="dropdownAddress">
+                                    <div class="contacts-dropdown-holder">
+                                        <?php $show_divider = true; ?>
+                                        <?php foreach ($address_array as $address) { ?>
+                                            <?php if ($address['name'] === 'secondary_phone' || $address['name'] === 'secondary_address' || $address['name'] === 'secondary_email' || $address['name'] === 'secondary_working_hours') { ?>
+                                                <?php if ($show_divider) { ?>
+                                                    <hr class="divider" />
+                                                <?php } ?>
+                                                <?php $show_divider = false; ?>
+                                            <?php } ?>
+                                            <?php if ($address['show_contact']) { ?>
+                                                <div class="contact-item">
+                                                    <a href="<?= htmlspecialchars($address['link'], ENT_QUOTES, 'UTF-8'); ?>"
+                                                        <?php if (!empty($address['onclick'])) { ?>
+                                                        onclick="<?= $address['onclick']; ?>"
+                                                        <?php } ?>
+
+                                                        <?php if (
+                                                            !empty($address['link'])
+                                                            && strpos($address['link'], 'http') === 0
+                                                        ) { ?>
+                                                        target="_blank"
+                                                        <?php } ?>>
+
+                                                        <?php if (!empty($address['icon_svg'])) { ?>
+                                                            <?= $address['icon_svg']; ?>
+                                                        <?php } else { ?>
+                                                            <?= $address['icon']; ?>
+                                                        <?php } ?>
+
+                                                        <span class="nowrap">
+                                                            <?= htmlspecialchars($address['value'], ENT_QUOTES, 'UTF-8'); ?>
+                                                        </span>
+                                                    </a>
+                                                </div>
+                                            <?php } ?>
+                                        <?php } ?>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <?php foreach ($contact_array as $contact) { ?>
+
+                        <?php if ($contact['show_contact']) { ?>
+
+                            <div class="<?= $contact['header_class']; ?>">
+
+                                <a
+                                    href="<?= $contact['link']; ?>"
+                                    class="shortcut-wrapper"
+                                    <?= !empty($contact['onclick']) ? 'onclick="' . $contact['onclick'] . '"' : ''; ?>
+                                    <?= !empty($contact['link']) ? 'target="_blank"' : ''; ?>>
+
+                                    <?= !empty($contact['icon_svg'])
+                                        ? $contact['icon_svg']
+                                        : $contact['icon']; ?>
+
+                                    <span class="nowrap hidden d-none<?= $contact['name'] == 'callback' ? ' d-xl-block animate-content' : ''; ?>">
+                                        <?= $contact['value']; ?>
+                                    </span>
+
+                                </a>
+
+                            </div>
+
+                        <?php } ?>
+
+                    <?php } ?>
+                    <?php /*
                     <?php if ($header_phone) { ?>
                         <div class="icon-element is_phone">
                             <a class="shortcut-wrapper phone" href="tel:<?php echo $telephone; ?>" target="_blank">
@@ -114,6 +219,7 @@
                             </svg>
                         </a>
                     </div>
+                    */ ?>
                     <!-- <div class="icon-element hidden">
 							<a class="shortcut-wrapper vk" href="https://vk.com/makovka_ufa" target="_blank">
 								<img src="/catalog/view/theme/basel/stylesheet/icons/icon-vk.png" title="vkonakte"

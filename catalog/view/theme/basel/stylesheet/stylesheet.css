@@ -579,6 +579,10 @@ html.no-scroll body {
     margin-bottom: 50px !important;
 }
 
+.pb-0 {
+    padding-bottom: 0 !important;
+}
+
 .vertical-middle {
     vertical-align: middle;
 }
@@ -1905,9 +1909,7 @@ div.required .control-label:after {
 .icon-element svg:not(.ham) {
     width: 20px;
     height: 20px;
-}
 
-    {
     position: relative;
 
     cursor: pointer;
@@ -2198,6 +2200,23 @@ div.required .control-label:after {
     }
 }
 
+/* header contacts */
+.contact-item {
+    font-family: Phenomena, sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0px;
+    line-height: 1.7;
+    padding: 0 12px 0 6px;
+}
+
+.contact-item>a> svg {
+    width: 18px;
+    height: 18px;
+    margin-right: 6px;
+    margin-bottom: -4px;
+}
 /* Search */
 .shortcut-wrapper .icon-magnifier {
     transition: opacity 400ms;
@@ -8525,18 +8544,20 @@ a.label-link:not(:hover) {
 }
 
 .information-contact .grid-holder p.contact-detail {
-    padding: 0px 10px 10px 55px;
+    padding: 0px 12px 12px 24px;
     margin-bottom: 0;
-    min-height: 50px;
+    min-height: 24px;
     position: relative;
+    font-size: 14px;
 }
 
 .information-contact .grid-holder .contact-detail .icon {
     position: absolute;
     left: 0;
-    top: 0;
-    font-size: 38px;
-    line-height: 38px;
+    top: auto;
+    font-size: 20px;
+    line-height: 1;
+    bottom: 12px;
 }
 
 /* Widgets */

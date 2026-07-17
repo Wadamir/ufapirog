@@ -63,3 +63,20 @@ $_['text_show_xs']                          = '<768px';
 $_['text_show_md']                          = '≥768px';
 $_['text_show_lg']                          = '≥992px';
 $_['text_show_xl']                          = '≥1200px';
+
+
+
+// Contact Page tab
+$_['text_tab_contact_page'] = 'Contact Page';
+$_['text_show_contact_page'] = 'Show on Contact Page';
+
+$_['text_contact_map']                  = 'Map Settings';
+$_['entry_map_layout']                  = 'Map layout';
+
+$_['text_full_width']                       = 'Full Width';
+$_['text_boxed']                            = 'Boxed';
+$_['text_default']                          = 'Default';
+
+$_['entry_yandex_map'] = 'Yandex Map';
+$_['text_how_use_yandex_map']           = 'How to use Yandex Maps?';
+$_['text_yandex_map_instruction']       = '<p>Go to <a href="https://yandex.ru/map-constructor" target="_blank">Yandex Map Constructor</a> and follow the instructions on the site. Use the iframe code for embedding.<br>Example:<br><code style="display:block; white-space:pre-wrap; word-wrap:break-word;">&lt;iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A317965d5675fa3a7ed0ad40da9a6756ff2c08202028c00057a1a64b316861351&amp;amp;source=constructor" width="100%" height="400" frameborder="0"&gt;&lt;/iframe&gt;</code></p>';

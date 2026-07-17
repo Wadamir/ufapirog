@@ -44,7 +44,7 @@ foreach ($basel_contacts as $contact) {
 
 $matrix_columns = array();
 foreach ($basel_resolutions as $resolution) {
-    $label_var = 'text_show_' . str_replace('header_', '', $resolution);
+    $label_var = 'text_show_' . $resolution;
     $label = isset($$label_var) ? $$label_var : $resolution;
     $matrix_columns[$resolution] = $label;
 }
@@ -96,7 +96,7 @@ foreach ($basel_resolutions as $resolution) {
                 <?php foreach ($matrix_columns as $column_key => $column_label) { ?>
 
                     <?php
-                    $setting_key = $row_key . '_' . $column_key;
+                    $setting_key = $row_key . '_header_' . $column_key;
                     $setting_value = isset($$setting_key) ? $$setting_key : 0;
                     ?>
 

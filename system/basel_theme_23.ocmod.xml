@@ -161,18 +161,15 @@
     </file>
 	
 	<file path="catalog/controller/information/contact.php">
-		<operation error="log">
-		<search><![CDATA[$data['store'] = $this->config->get('config_name');]]></search>
-		<add position="before"><![CDATA[
-		$data['basel_map_style'] = $this->config->get('basel_map_style');
-		$data['basel_map_lat'] = $this->config->get('basel_map_lat');
-		$data['basel_map_lon'] = $this->config->get('basel_map_lon');
-		if ($this->config->get('basel_map_style')) {
-		$this->document->addScript('https://maps.google.com/maps/api/js?sensor=false&libraries=geometry&v=3.24&key=' . $this->config->get('basel_map_api') . '');
-		$this->document->addScript('catalog/view/theme/basel/js/maplace.min.js');
-		}
-		]]></add>
-		</operation>
+        <operation error="log">
+            <search><![CDATA[$data['store'] = $this->config->get('config_name');]]></search>
+            <add position="before"><![CDATA[
+                // Basel Features
+                if ($this->config->get('theme_default_directory') == 'basel') {
+                    include(DIR_APPLICATION . 'controller/extension/basel/contact_helper.php');
+                }
+            ]]></add>            
+        </operation>        
     </file>
 	
 	<file path="catalog/controller/{common,startup}/seo_url.php">

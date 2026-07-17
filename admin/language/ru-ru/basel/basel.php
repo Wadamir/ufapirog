@@ -62,3 +62,21 @@ $_['text_show_xs']                          = '<768px';
 $_['text_show_md']                          = '≥768px';
 $_['text_show_lg']                          = '≥992px';
 $_['text_show_xl']                          = '≥1200px';
+
+
+
+
+// Contact Page tab
+$_['text_tab_contact_page'] = 'Страница контактов';
+$_['text_show_contact_page'] = 'Показывать на странице контактов';
+
+$_['text_contact_map']                  = 'Настройки карты';
+$_['entry_map_layout']                  = 'Макет карты';
+
+$_['text_full_width']                       = 'На всю ширину';
+$_['text_boxed']                            = 'В контейнере';
+$_['text_default']                          = 'По умолчанию';
+
+$_['entry_yandex_map']                  = 'Код Яндекс.Карты (iframe)';
+$_['text_how_use_yandex_map']           = 'Как использовать Яндекс.Карты?';
+$_['text_yandex_map_instruction']       = '<p>Перейдите на <a href="https://yandex.ru/map-constructor" target="_blank">Конструктор карт Яндекс</a> и следуйте инструкциям на сайте. Используйте iframe для вставки.<br>Пример:<br><code style="display:block; white-space:pre-wrap; word-wrap:break-word;">&lt;iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A317965d5675fa3a7ed0ad40da9a6756ff2c08202028c00057a1a64b316861351&amp;amp;source=constructor" width="100%" height="400" frameborder="0"&gt;&lt;/iframe&gt;</code></p>';

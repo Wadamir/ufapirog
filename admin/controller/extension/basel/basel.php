@@ -375,10 +375,6 @@ class ControllerExtensionBaselBasel extends Controller
             'newlabel_status',
             'stock_badge_status',
             'salebadge_status',
-            'basel_map_style',
-            'basel_map_lon',
-            'basel_map_lat',
-            'basel_map_api',
             'product_question_status',
             'questions_per_page',
             'questions_new_status',
@@ -512,7 +508,13 @@ class ControllerExtensionBaselBasel extends Controller
             'basel_custom_js',
             'basel_thumb_swap',
             'basel_price_update',
-            'basel_sharing_style'
+            'basel_sharing_style',
+            // Contact page
+            'basel_map_style',
+            'basel_map_lon',
+            'basel_map_lat',
+            'basel_map_api',
+            'basel_yandex_map'
         );
 
         // Contacts
@@ -535,16 +537,17 @@ class ControllerExtensionBaselBasel extends Controller
         );
 
         $data['basel_resolutions'] = array(
-            'header_xs',
-            'header_md',
-            'header_lg',
-            'header_xl',
+            'xs',
+            'md',
+            'lg',
+            'xl',
         );
 
         foreach ($data['basel_contacts'] as $contact) {
             $codes['basel'][] = $contact;
             foreach ($data['basel_resolutions'] as $resolution) {
-                $codes['basel'][] = $contact . '_' . $resolution;
+                $codes['basel'][] = $contact . '_header_' . $resolution;
+                $codes['basel'][] = $contact . '_contact_page_' . $resolution;
             }
         }
 
@@ -704,6 +707,13 @@ class ControllerExtensionBaselBasel extends Controller
         if (is_null($this->getConfig('basel_thumb_swap'))) $data['basel_thumb_swap'] = '1';
         if (is_null($this->getConfig('basel_price_update'))) $data['basel_price_update'] = '1';
         if (is_null($this->getConfig('basel_sharing_style'))) $data['basel_sharing_style'] = 'small';
+
+        // Contact page
+        if (is_null($this->getConfig('basel_map_style'))) $data['basel_map_style'] = '0';
+        if (is_null($this->getConfig('basel_map_lon'))) $data['basel_map_lon'] = '';
+        if (is_null($this->getConfig('basel_map_lat'))) $data['basel_map_lat'] = '';
+        if (is_null($this->getConfig('basel_map_api'))) $data['basel_map_api'] = '';
+        if (is_null($this->getConfig('basel_yandex_map'))) $data['basel_yandex_map'] = '';
 
         if (empty($data['basel_theme_version'])) {
             $data['theme_default_image_category_width'] = '335';
