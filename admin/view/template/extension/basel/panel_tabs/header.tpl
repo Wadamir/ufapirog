@@ -1,5 +1,5 @@
-<legend>Header Styling</legend>
-
+<legend><?= $text_tab_header ?></legend>
+<?php /*
 <div class="form-group">
     <label class="col-sm-2 control-label">Header Alternative</label>
     <div class="col-sm-10">
@@ -28,6 +28,101 @@
         </div>
     </div>
 </div>
+*/ ?>
+<input type="hidden" name="settings[basel][basel_header]" value="<?php echo $basel_header; ?>" />
+
+
+<legend class="sub"><?= $text_show_header ?></legend>
+
+<?php
+$matrix_rows = array();
+foreach ($basel_contacts as $contact) {
+    $label_var = 'entry_' . $contact;
+    $label = isset($$label_var) ? $$label_var : $contact;
+    $matrix_rows[$contact] = $label;
+}
+
+$matrix_columns = array();
+foreach ($basel_resolutions as $resolution) {
+    $label_var = 'text_show_' . str_replace('header_', '', $resolution);
+    $label = isset($$label_var) ? $$label_var : $resolution;
+    $matrix_columns[$resolution] = $label;
+}
+
+// $matrix_rows = array(
+//     'main_phone' => $entry_main_phone,
+//     'main_address' => $entry_main_address,
+//     'main_email' => $entry_main_email,
+//     'main_working_hours' => $entry_main_working_hours,
+//     'secondary_phone' => $entry_secondary_phone,
+//     'secondary_address' => $entry_secondary_address,
+//     'secondary_email' => $entry_secondary_email,
+//     'secondary_working_hours' => $entry_secondary_working_hours,
+//     'basel_max' => $entry_basel_max,
+//     'basel_whatsapp' => $entry_basel_whatsapp,
+//     'basel_telegram' => $entry_basel_telegram,
+//     'basel_vkontakte' => $entry_basel_vkontakte,
+//     'basel_instagram' => $entry_basel_instagram,
+//     'basel_tiktok' => $entry_basel_tiktok,
+//     'basel_avito' => $entry_basel_avito,
+// );
+
+// $matrix_columns = array(
+//     'header_xs' => $text_show_xs,
+//     'header_md' => $text_show_md,
+//     'header_lg' => $text_show_lg,
+//     'header_xl' => $text_show_xl,
+// );
+?>
+
+<table class="table table-bordered__ matrix-table" style="max-width: 600px;">
+    <thead>
+        <tr>
+            <th></th>
+
+            <?php foreach ($matrix_columns as $column_label) { ?>
+                <th class="text-center"><?= $column_label ?></th>
+            <?php } ?>
+
+        </tr>
+    </thead>
+
+    <tbody>
+
+        <?php foreach ($matrix_rows as $row_key => $row_label) { ?>
+            <tr>
+                <th scope="row"><?= $row_label ?></th>
+
+                <?php foreach ($matrix_columns as $column_key => $column_label) { ?>
+
+                    <?php
+                    $setting_key = $row_key . '_' . $column_key;
+                    $setting_value = isset($$setting_key) ? $$setting_key : 0;
+                    ?>
+
+                    <td class="text-center">
+
+                        <input
+                            type="hidden"
+                            name="settings[basel][<?= $setting_key ?>]"
+                            value="0" />
+
+                        <input
+                            type="checkbox"
+                            name="settings[basel][<?= $setting_key ?>]"
+                            value="1"
+                            <?= $setting_value ? 'checked="checked"' : '' ?> />
+
+                    </td>
+
+                <?php } ?>
+
+            </tr>
+        <?php } ?>
+
+    </tbody>
+</table>
+
 
 <legend class="sub">Top Line</legend>
 

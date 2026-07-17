@@ -1,115 +1,99 @@
-<legend>Shop</legend>
+<legend><?= $text_tab_shop ?></legend>
 
-<legend class="sub">Catalog Mode</legend>
+<div class="form-field new-form-group radio-switcher">
+    <p class="radio-switcher-title">
+        <span class="title"><?= $entry_theme_status ?></span>
+    </p>
 
-<div class="form-group">
-    <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="Disable the product purchase options globally">Catlog Mode</span></label>
-    <div class="col-sm-10 toggle-btn">
-    <label><input type="radio" name="settings[basel][catalog_mode]" value="0" <?php if($catalog_mode == '0'){echo ' checked="checked"';} ?> /><span>Off</span></label>
-    <label><input type="radio" name="settings[basel][catalog_mode]" value="1" <?php if($catalog_mode == '1'){echo ' checked="checked"';} ?> /><span>On</span></label>
-    </div>                   
+    <div class="form-group">
+        <label class="col-sm-2 control-label" for="setting-theme-default-theme_default_directory">
+            <span data-toggle="tooltip" title="" data-original-title="<?= $help_theme_status ?>"><?= $entry_theme_status ?></span>
+        </label>
+        <div class="col-sm-10">
+            <label class="smp-switch" for="setting-theme-default-theme_default_directory">
+                <input type="checkbox" role="switch" name="settings[theme_default][theme_default_directory]" value="1" id="setting-theme-default-theme_default_directory" />
+                <span class="smp-switch-slider">
+                    <span class="smp-switch-state smp-switch-state-on"><?= $text_enabled ?></span>
+                    <span class="smp-switch-state smp-switch-state-off"><?= $text_disabled ?></span>
+                </span>
+            </label>
+            <input type="hidden" name="settings[theme_default][theme_default_directory]" value="<?= $theme_default_directory ?>" />
+        </div>
+    </div>
+    <script>
+        $(document).ready(function() {
+            var $checkbox = $('#setting-theme-default-theme_default_directory');
+            var $hiddenInput = $('input[name="settings[theme_default][theme_default_directory]"][type="hidden"]');
+
+            // Set the initial state of the checkbox based on the hidden input value
+            if ($hiddenInput.val() === 'basel') {
+                $checkbox.prop('checked', true);
+            } else {
+                $checkbox.prop('checked', false);
+            }
+
+            // Update the hidden input value when the checkbox state changes
+            $checkbox.change(function() {
+                if ($(this).is(':checked')) {
+                    $hiddenInput.val('basel');
+                } else {
+                    $hiddenInput.val('default');
+                }
+            });
+        });
+    </script>
 </div>
 
+<input
+    type="hidden"
+    name="settings[config][config_theme]"
+    value="default" />
 
+<input
+    type="hidden"
+    name="settings[basel_version][basel_theme_version]"
+    value="1.2.8.0" />
 
+<?php
+$contact_fields = $basel_contacts;
+?>
 
-<legend class="sub">Product Quickview</legend>
-<div class="form-group">
-    <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="Enable/Disable the product quickview feature globally">Product quickview Status</span></label>
-    <div class="col-sm-10 toggle-btn">
-    <label><input type="radio" name="settings[basel][quickview_status]" value="0" <?php if($quickview_status == '0'){echo ' checked="checked"';} ?> /><span>Disabled</span></label>
-    <label><input type="radio" name="settings[basel][quickview_status]" value="1" <?php if($quickview_status == '1'){echo ' checked="checked"';} ?> /><span>Enabled</span></label>
-    </div>                   
-</div>
+<legend class="sub"><?= $text_contacts ?></legend>
 
-<legend class="sub">Product Labels</legend>
-<div class="form-group">
-    <label class="col-sm-2 control-label">Sale label</label>
-    <div class="col-sm-10">
-    <select name="settings[basel][salebadge_status]" class="form-control">
-        <option value="0"<?php if($salebadge_status == '0'){echo ' selected="selected"';} ?>>Disabled</option>
-        <option value="1"<?php if($salebadge_status == '1'){echo ' selected="selected"';} ?>>Enabled - Sale Text</option>
-		<option value="2"<?php if($salebadge_status == '2'){echo ' selected="selected"';} ?>>Enabled - Discount Percentage</option>
-    </select>
-    </div>                   
-</div>
+<?php foreach ($contact_fields as $key) { ?>
 
+    <?php
+    $label_var = 'entry_' . $key;
+    $tooltip_var = 'entry_' . $key . '_tooltip';
 
-<div class="form-group">
-    <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="Set how many days to show the new-label on new products. Set it as 0 to disable">New label period</span></label>
-    <div class="col-sm-10">
-    <input class="form-control" name="settings[basel][newlabel_status]" value="<?php echo isset($newlabel_status) ? $newlabel_status : '0'; ?>" />
-    </div>                   
-</div>
-<div class="form-group">
-    <label class="col-sm-2 control-label">Out of stock label</label>
-    <div class="col-sm-10 toggle-btn">
-    <label><input type="radio" name="settings[basel][stock_badge_status]" value="0" <?php if($stock_badge_status == '0'){echo ' checked="checked"';} ?> /><span>Disabled</span></label>
-    <label><input type="radio" name="settings[basel][stock_badge_status]" value="1" <?php if($stock_badge_status == '1'){echo ' checked="checked"';} ?> /><span>Enabled</span></label>
-    </div>                     
-</div>
+    $label = isset($$label_var) ? $$label_var : $key;
+    $tooltip = isset($$tooltip_var) ? $$tooltip_var : '';
+    $value = isset($$key) ? $$key : '';
+    ?>
 
+    <div class="form-group new-form-group">
 
-<legend class="sub">Specials Countdown</legend>
-<div class="form-group">
-    <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="View time left on (time limited) special prices. Please note tat the Product groups module has its own setting for this.">Specials countdown status</span></label>
-    <div class="col-sm-10 toggle-btn">
-    <label><input type="radio" name="settings[basel][countdown_status]" value="0" <?php if($countdown_status == '0'){echo ' checked="checked"';} ?> /><span>Disabled</span></label>
-    <label><input type="radio" name="settings[basel][countdown_status]" value="1" <?php if($countdown_status == '1'){echo ' checked="checked"';} ?> /><span>Enabled</span></label>
-    </div>                   
-</div>
+        <label class="col-sm-2 control-label" for="setting-basel-<?= $key ?>">
+            <?php if ($tooltip && trim($tooltip) !== '') { ?>
+                <span class="title"><?= $label ?></span>
+            <?php } else { ?>
+                <?= $label ?>
+            <?php } ?>
 
-<legend class="sub">Add To Cart</legend>
-<div class="form-group">
-    <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="Action when an item is successfully added to cart">Add to cart action</span></label>
-    <div class="col-sm-10 toggle-btn">
-    <select name="settings[basel][basel_cart_action]" class="form-control">
-        <option value="0"<?php if($basel_cart_action == '0'){echo ' selected="selected"';} ?>>Stay - Notification message</option>
-        <option value="redirect_cart"<?php if($basel_cart_action == 'redirect_cart'){echo ' selected="selected"';} ?>>Redirect - Shopping cart</option>
-        <option value="redirect_checkout"<?php if($basel_cart_action == 'redirect_checkout'){echo ' selected="selected"';} ?>>Redirect - Checkout</option>
-    </select>
-    </div>                   
-</div>
+            <?php if ($tooltip && trim($tooltip) !== '') { ?>
+                <i
+                    class="bi bi-question-circle-fill"
+                    data-toggle="tooltip"
+                    title="<?= $tooltip ?>"></i>
+            <?php } ?>
+        </label>
+        <div class="col-sm-10">
+            <input
+                class="form-control"
+                name="settings[basel][<?= $key ?>]"
+                value="<?= $value ?>"
+                id="setting-basel-<?= $key ?>" />
+        </div>
+    </div>
 
-
-<legend class="sub">Wish List</legend>
-<div class="form-group">
-    <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="Enable/Disable the wishlist feature globally">Wish List Status</span></label>
-    <div class="col-sm-10 toggle-btn">
-    <label><input type="radio" name="settings[basel][wishlist_status]" value="0" <?php if($wishlist_status == '0'){echo ' checked="checked"';} ?> /><span>Disabled</span></label>
-    <label><input type="radio" name="settings[basel][wishlist_status]" value="1" <?php if($wishlist_status == '1'){echo ' checked="checked"';} ?> /><span>Enabled</span></label>
-    </div>                   
-</div>
-
-<div class="form-group">
-    <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="Action when an item is successfully added to wish list">Add to wish list action</span></label>
-    <div class="col-sm-10 toggle-btn">
-    <select name="settings[basel][basel_wishlist_action]" class="form-control">
-        <option value="0"<?php if($basel_wishlist_action == '0'){echo ' selected="selected"';} ?>>Stay - Notification message</option>
-        <option value="redirect"<?php if($basel_wishlist_action == 'redirect'){echo ' selected="selected"';} ?>>Redirect - Wish List Page</option>
-    </select>
-    </div>                   
-</div>
-
-<legend class="sub">Product Comparison</legend>
-<div class="form-group">
-    <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="Enable/Disable the product comparison feature globally">Comparison Status</span></label>
-    <div class="col-sm-10 toggle-btn">
-    <label><input type="radio" name="settings[basel][compare_status]" value="0" <?php if($compare_status == '0'){echo ' checked="checked"';} ?> /><span>Disabled</span></label>
-    <label><input type="radio" name="settings[basel][compare_status]" value="1" <?php if($compare_status == '1'){echo ' checked="checked"';} ?> /><span>Enabled</span></label>
-    </div>                   
-</div>
-
-<div class="form-group">
-    <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="Action when an item is successfully added to wish list">Add to compare action</span></label>
-    <div class="col-sm-10 toggle-btn">
-    <select name="settings[basel][basel_compare_action]" class="form-control">
-        <option value="0"<?php if($basel_compare_action == '0'){echo ' selected="selected"';} ?>>Stay - Notification message</option>
-        <option value="redirect"<?php if($basel_compare_action == 'redirect'){echo ' selected="selected"';} ?>>Redirect - Product Comparison Page</option>
-    </select>
-    </div>                   
-</div>
-
-
-
-
+<?php } ?>

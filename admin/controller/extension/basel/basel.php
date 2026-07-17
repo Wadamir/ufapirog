@@ -53,7 +53,6 @@ class ControllerExtensionBaselBasel extends Controller
         $data['languages'] = $this->model_localisation_language->getLanguages();
 
         $data['text_confirm'] = $this->language->get('text_confirm');
-
         $this->document->setTitle($this->language->get('heading_title'));
 
         $data['breadcrumbs'] = array();
@@ -84,7 +83,7 @@ class ControllerExtensionBaselBasel extends Controller
             $data['success'] = '';
         }
 
-        // Lanugage strings
+        // Language strings
         $data['button_add'] = $this->language->get('button_add');
         $data['button_remove'] = $this->language->get('button_remove');
         $data['error_permission'] = $this->language->get('error_permission');
@@ -105,6 +104,41 @@ class ControllerExtensionBaselBasel extends Controller
         }
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
+            // Contacts - save to main config, not to basel
+
+            // Phone and email - simple config update
+            if (isset($this->request->post['settings']['basel']['main_phone'])) {
+                $value = $this->request->post['settings']['basel']['main_phone'];
+                $existing_value = $this->model_setting_setting->getSettingValue('config_telephone', $this->store_id);
+
+                if (!is_null($existing_value)) {
+                    $this->model_setting_setting->editSettingValue('config', 'config_telephone', $value, $this->store_id);
+                } else {
+                    $this->model_extension_basel_basel->addSettingValue('config', 'config_telephone', $value, $this->store_id);
+                }
+            }
+
+            if (isset($this->request->post['settings']['basel']['main_email'])) {
+                $value = $this->request->post['settings']['basel']['main_email'];
+                $existing_value = $this->model_setting_setting->getSettingValue('config_email', $this->store_id);
+
+                if (!is_null($existing_value)) {
+                    $this->model_setting_setting->editSettingValue('config', 'config_email', $value, $this->store_id);
+                } else {
+                    $this->model_extension_basel_basel->addSettingValue('config', 'config_email', $value, $this->store_id);
+                }
+            }
+
+            // Address and working hours - also sync with config_langdata
+            if (isset($this->request->post['settings']['basel']['main_address'])) {
+                $this->model_extension_basel_basel->updateContactSetting('config_address', 'address', $this->request->post['settings']['basel']['main_address'], $this->store_id);
+            }
+
+            if (isset($this->request->post['settings']['basel']['main_working_hours'])) {
+                $this->model_extension_basel_basel->updateContactSetting('config_open', 'open', $this->request->post['settings']['basel']['main_working_hours'], $this->store_id);
+            }
+
+
             // Added to delete basel fonts from database when they are completely deleted
             if (empty($this->request->post['settings']['basel']['basel_fonts'])) {
                 $this->request->post['settings']['basel']['basel_fonts'] = array();
@@ -120,6 +154,11 @@ class ControllerExtensionBaselBasel extends Controller
 
             foreach ($this->request->post['settings'] as $code => $setting_data) {
                 foreach ($setting_data as $key => $value) {
+                    // Skip main contact fields - they are saved to config, not basel
+                    if (in_array($key, ['main_phone', 'main_address', 'main_email', 'main_working_hours'])) {
+                        continue;
+                    }
+
                     $setting_value = $this->model_extension_basel_basel->getSettingValue($key, $data['store_id']);
 
                     if (!empty($setting_value)) {
@@ -150,6 +189,11 @@ class ControllerExtensionBaselBasel extends Controller
 
             $this->session->data['success'] = $this->language->get('text_success');
 
+            // Clear caches
+            $this->cache->delete('config.store_' . (int)$this->store_id);
+            if ($this->store_id == 0) {
+                $this->cache->delete('config');
+            }
             $this->cache->delete('basel_mandatory_css_store_' . $data['store_id']);
             $this->cache->delete('basel_styles_cache_store_' . $data['store_id']);
             $this->cache->delete('basel_fonts_cache_store_' . $data['store_id']);
@@ -467,8 +511,46 @@ class ControllerExtensionBaselBasel extends Controller
             'basel_sharing_style'
         );
 
+        // Contacts
+        $data['basel_contacts'] = array(
+            'main_phone',
+            'main_email',
+            'main_address',
+            'main_working_hours',
+            'secondary_phone',
+            'secondary_email',
+            'secondary_address',
+            'secondary_working_hours',
+            'basel_max',
+            'basel_whatsapp',
+            'basel_telegram',
+            'basel_vkontakte',
+            'basel_instagram',
+            'basel_tiktok',
+            'basel_avito',
+        );
+
+        $data['basel_resolutions'] = array(
+            'header_xs',
+            'header_md',
+            'header_lg',
+            'header_xl',
+        );
+
+        foreach ($data['basel_contacts'] as $contact) {
+            $codes['basel'][] = $contact;
+            foreach ($data['basel_resolutions'] as $resolution) {
+                $codes['basel'][] = $contact . '_' . $resolution;
+            }
+        }
+
         foreach ($codes as $code => $variables) {
             foreach ($variables as $variable) {
+                // Main contact fields are loaded later from main config
+                if (in_array($variable, ['main_phone', 'main_address', 'main_email', 'main_working_hours'])) {
+                    continue;
+                }
+
                 if (isset($this->request->post[$variable])) {
                     $data[$variable] = $this->request->post[$variable];
                 } else {
@@ -512,12 +594,12 @@ class ControllerExtensionBaselBasel extends Controller
         }
 
         // Theme content start
-        $data['heading_title'] = $this->language->get('heading_title');
+        // $data['heading_title'] = $this->language->get('heading_title');
+        // $data['button_save'] = $this->language->get('button_save');
+        // $data['text_disabled'] = $this->language->get('text_disabled');
+        // $data['text_enabled'] = $this->language->get('text_enabled');
 
-        $data['button_save'] = $this->language->get('button_save');
-
-        $data['text_disabled'] = $this->language->get('text_disabled');
-        $data['text_enabled'] = $this->language->get('text_enabled');
+        $data += $this->load->language('basel/basel');
 
         $data['action'] = $this->url->link('extension/basel/basel', $token_prefix . '=' . $this->session->data[$token_prefix], true);
 
@@ -644,6 +726,36 @@ class ControllerExtensionBaselBasel extends Controller
             $data['quickview_popup_image_height'] = '590';
             $data['subcat_image_width'] = '200';
             $data['subcat_image_height'] = '264';
+        }
+
+        // Contacts - always load from main config, not from basel settings
+        $front_lang_id = $this->config->get('config_language_id');
+        $data['main_phone'] = $this->config->get('config_telephone');
+        $data['main_address'] = $this->config->get('config_address');
+        $data['main_email'] = $this->config->get('config_email');
+        $data['main_working_hours'] = $this->config->get('config_open');
+
+        // if (is_null($this->getConfig('secondary_phone'))) $data['secondary_phone'] = '';
+        // if (is_null($this->getConfig('secondary_address'))) $data['secondary_address'] = '';
+        // if (is_null($this->getConfig('secondary_email'))) $data['secondary_email'] = '';
+        // if (is_null($this->getConfig('secondary_working_hours'))) $data['secondary_working_hours'] = '';
+
+        // if (is_null($this->getConfig('basel_max'))) $data['basel_max'] = '';
+        // if (is_null($this->getConfig('basel_whatsapp'))) $data['basel_whatsapp'] = '';
+        // if (is_null($this->getConfig('basel_telegram'))) $data['basel_telegram'] = '';
+        // if (is_null($this->getConfig('basel_vkontakte'))) $data['basel_vkontakte'] = '';
+        // if (is_null($this->getConfig('basel_instagram'))) $data['basel_instagram'] = '';
+        // if (is_null($this->getConfig('basel_tiktok'))) $data['basel_tiktok'] = '';
+        // if (is_null($this->getConfig('basel_avito'))) $data['basel_avito'] = '';
+
+        foreach ($data['basel_contacts'] as $contact) {
+            foreach ($data['basel_resolutions'] as $resolution) {
+                if (is_null($this->getConfig($contact . '_' . $resolution))) $data[$contact . '_' . $resolution] = '0';
+            }
+            if (in_array($contact, ['main_phone', 'main_address', 'main_email', 'main_working_hours'])) {
+                continue;
+            }
+            if (is_null($this->getConfig($contact))) $data[$contact] = '';
         }
 
         // Render page
