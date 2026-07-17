@@ -130,7 +130,7 @@
                                         <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
                                     </svg>
                                 </a>
-                                <div class="dropdown-content__ dropdown-menu" aria-labelledby="dropdownAddress">
+                                <div class="dropdown-content_new dropdown-menu" aria-labelledby="dropdownAddress">
                                     <div class="contacts-dropdown-holder">
                                         <?php $show_divider = true; ?>
                                         <?php foreach ($address_array as $address) { ?>

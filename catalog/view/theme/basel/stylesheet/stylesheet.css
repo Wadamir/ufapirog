@@ -2217,6 +2217,20 @@ div.required .control-label:after {
     margin-right: 6px;
     margin-bottom: -4px;
 }
+
+@media (max-width:991px){
+
+    .header-main .dropdown-content_new {
+        position:fixed;
+        right:10px;
+        left:10px;
+        top:80px;
+        width:auto;
+        max-width:none;
+    }
+
+}
+
 /* Search */
 .shortcut-wrapper .icon-magnifier {
     transition: opacity 400ms;
