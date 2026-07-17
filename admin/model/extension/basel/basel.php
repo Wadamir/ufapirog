@@ -82,7 +82,7 @@ class ModelExtensionBaselBasel extends Model
         // Сначала пробуем получить значение из основного конфига
         $value = $this->config->get($key);
 
-        // Если значение пусто, пробуем получить из config_langdata
+        // Если значение пусто, пробуем получить из config_langdata JSON
         if (empty($value)) {
             // Маппинг ключей конфига на поля в config_langdata
             $langdata_fields = array(
@@ -96,14 +96,11 @@ class ModelExtensionBaselBasel extends Model
                 $field = $langdata_fields[$key];
                 $language_id = (int)$this->config->get('config_language_id');
 
-                $query = $this->db->query(
-                    "SELECT " . $field . " FROM " . DB_PREFIX . "config_langdata 
-                    WHERE language_id = " . $language_id . " 
-                    LIMIT 1"
-                );
+                // Получаем JSON значение config_langdata из таблицы oc_setting
+                $langdata = $this->getSettingValue('config_langdata', 0);
 
-                if ($query->num_rows) {
-                    $value = $query->row[$field];
+                if (is_array($langdata) && isset($langdata[$language_id][$field])) {
+                    $value = $langdata[$language_id][$field];
                 }
             }
         }
