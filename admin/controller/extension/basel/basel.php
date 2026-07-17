@@ -730,10 +730,11 @@ class ControllerExtensionBaselBasel extends Controller
 
         // Contacts - always load from main config, not from basel settings
         $front_lang_id = $this->config->get('config_language_id');
-        $data['main_phone'] = $this->config->get('config_telephone');
-        $data['main_address'] = $this->config->get('config_address');
-        $data['main_email'] = $this->config->get('config_email');
-        $data['main_working_hours'] = $this->config->get('config_open');
+        $this->load->model('extension/basel/basel');
+        $data['main_phone'] = $this->model_extension_basel_basel->getConfigWithLangFallback('config_telephone');
+        $data['main_address'] = $this->model_extension_basel_basel->getConfigWithLangFallback('config_address');
+        $data['main_email'] = $this->model_extension_basel_basel->getConfigWithLangFallback('config_email');
+        $data['main_working_hours'] = $this->model_extension_basel_basel->getConfigWithLangFallback('config_open');
 
         // if (is_null($this->getConfig('secondary_phone'))) $data['secondary_phone'] = '';
         // if (is_null($this->getConfig('secondary_address'))) $data['secondary_address'] = '';

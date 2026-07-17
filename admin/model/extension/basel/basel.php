@@ -76,4 +76,38 @@ class ModelExtensionBaselBasel extends Model
         $this->db->query("UPDATE " . DB_PREFIX . "setting SET `value` = '" . $this->db->escape(json_encode($langdata)) . "', serialized = '1' "
             . "WHERE `code` = 'config' AND `key` = 'config_langdata' AND store_id = '" . (int)$store_id . "'");
     }
+
+    public function getConfigWithLangFallback($key)
+    {
+        // Сначала пробуем получить значение из основного конфига
+        $value = $this->config->get($key);
+
+        // Если значение пусто, пробуем получить из config_langdata
+        if (empty($value)) {
+            // Маппинг ключей конфига на поля в config_langdata
+            $langdata_fields = array(
+                'config_address' => 'address',
+                'config_open' => 'open',
+                'config_telephone' => 'phone',
+                'config_email' => 'email'
+            );
+
+            if (isset($langdata_fields[$key])) {
+                $field = $langdata_fields[$key];
+                $language_id = (int)$this->config->get('config_language_id');
+
+                $query = $this->db->query(
+                    "SELECT " . $field . " FROM " . DB_PREFIX . "config_langdata 
+                    WHERE language_id = " . $language_id . " 
+                    LIMIT 1"
+                );
+
+                if ($query->num_rows) {
+                    $value = $query->row[$field];
+                }
+            }
+        }
+
+        return $value;
+    }
 }
