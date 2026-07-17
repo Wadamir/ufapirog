@@ -2218,8 +2218,7 @@ div.required .control-label:after {
     margin-bottom: -4px;
 }
 
-@media (max-width:991px){
-
+@media (max-width:767px){
     .header-main .dropdown-content_new {
         position:fixed;
         right:10px;
@@ -2228,7 +2227,6 @@ div.required .control-label:after {
         width:auto;
         max-width:none;
     }
-
 }
 
 /* Search */
