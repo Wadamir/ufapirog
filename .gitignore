@@ -47,6 +47,9 @@
 !/admin/controller/extension/theme/
 !/admin/controller/extension/theme/basel.php
 
+!/admin/controller/extension/shipping/
+!/admin/controller/extension/shipping/**
+
 
 
 /admin/language/*
@@ -64,11 +67,15 @@
 !/admin/language/en-gb/extension/module/
 !/admin/language/en-gb/extension/module/**
 
+!/admin/language/en-gb/basel/
+!/admin/language/en-gb/basel/**
+
 /admin/language/en-gb/extension/theme/*
 !/admin/language/en-gb/extension/theme/
 !/admin/language/en-gb/extension/theme/basel.php
-!/admin/language/en-gb/basel/
-!/admin/language/en-gb/basel/**
+
+!/admin/language/en-gb/extension/shipping/
+!/admin/language/en-gb/extension/shipping/**
 
 
 /admin/language/ru-ru/*
@@ -85,12 +92,16 @@
 
 !/admin/language/ru-ru/extension/module/
 !/admin/language/ru-ru/extension/module/**
-/admin/language/ru-ru/extension/theme/*
-!/admin/language/ru-ru/extension/theme/
-!/admin/language/ru-ru/extension/theme/basel.php
+
 !/admin/language/ru-ru/basel/
 !/admin/language/ru-ru/basel/**
 
+/admin/language/ru-ru/extension/theme/*
+!/admin/language/ru-ru/extension/theme/
+!/admin/language/ru-ru/extension/theme/basel.php
+
+!/admin/language/ru-ru/extension/shipping/
+!/admin/language/ru-ru/extension/shipping/**
 
 
 /admin/model/*
@@ -160,6 +171,9 @@
 !/admin/view/template/extension/theme/basel.tpl
 !/admin/view/template/extension/theme/basel.twig
 
+!/admin/view/template/extension/shipping/
+!/admin/view/template/extension/shipping/**
+
 
 /catalog/*
 !/catalog/
@@ -178,6 +192,9 @@
 
 !/catalog/controller/mail/
 !/catalog/controller/mail/order.php
+
+!/catalog/controller/quickcheckout/
+!/catalog/controller/quickcheckout/**
 
 
 
@@ -200,12 +217,18 @@
 !/catalog/language/en-gb/extension/module/
 !/catalog/language/en-gb/extension/module/**
 
+!/catalog/language/en-gb/extension/shipping/
+!/catalog/language/en-gb/extension/shipping/**
+
 !/catalog/language/en-gb/basel/
 !/catalog/language/en-gb/basel/**
 
 !/catalog/language/en-gb/mail/
 !/catalog/language/en-gb/mail/order_add.php
 !/catalog/language/en-gb/mail/order_alert.php
+
+!/catalog/language/en-gb/quickcheckout/
+!/catalog/language/en-gb/quickcheckout/**
 
 
 /catalog/language/ru-ru/*
@@ -224,6 +247,9 @@
 !/catalog/language/ru-ru/extension/module/
 !/catalog/language/ru-ru/extension/module/**
 
+!/catalog/language/ru-ru/extension/shipping/
+!/catalog/language/ru-ru/extension/shipping/**
+
 !/catalog/language/ru-ru/basel/
 !/catalog/language/ru-ru/basel/**
 
@@ -231,6 +257,8 @@
 !/catalog/language/ru-ru/mail/order_add.php
 !/catalog/language/ru-ru/mail/order_alert.php
 
+!/catalog/language/ru-ru/quickcheckout/
+!/catalog/language/ru-ru/quickcheckout/**
 
 /catalog/model/*
 !/catalog/model/
@@ -248,6 +276,9 @@
 /catalog/model/extension/module/*
 !/catalog/model/extension/module/
 !/catalog/model/extension/module/digitalElephantFilter.php
+
+!/catalog/model/extension/shipping/
+!/catalog/model/extension/shipping/**
 
 !/catalog/model/extension/basel/
 !/catalog/model/extension/basel/**
