@@ -2218,6 +2218,10 @@ div.required .control-label:after {
     margin-bottom: -4px;
 }
 
+.header-main .dropdown-content_new {
+    padding: 12px;
+}
+
 @media (max-width:767px){
     .header-main .dropdown-content_new {
         position:fixed;
